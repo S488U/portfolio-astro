@@ -1,0 +1,90 @@
+---
+import { Icon } from "@dallay/astro-icon/components";
+import Tooltip from "../ui/Tooltip.astro";
+import { slugify } from "../../lib/utils";
+import Pills from "../ui/Pills.astro";
+
+const { project } = Astro.props;
+const { id, data, body } = project;
+const hasBrief = body?.trim().length > 0;
+
+const { title, description, github, live, technologies } = data;
+
+const iconPath = "cards";
+const iconName = "open";
+const icon = iconPath + "/" + iconName;
+
+const slug = slugify(title);
+
+if (!slug) {
+  return null;
+}
+
+const briefURL = "/project/" + slug;
+---
+
+<div
+  id={id}
+  class="h-fit w-full scroll-mt-16 rounded border-2 border-border bg-card px-4 py-4 transition-colors hover:bg-card/10 sm:w-3/4 sm:px-7 sm:py-7"
+>
+  <h2 class="text-md sm:text-2xl">
+    {title}
+  </h2>
+  <p class="mt-1 cursor-default text-xs text-muted-foreground sm:text-sm">
+    {description}
+  </p>
+
+  <!-- Technologies -->
+  <div class="mt-3 flex flex-wrap gap-2 sm:gap-3">
+    {technologies.map((tech: string) => <Pills tech={tech} />)}
+  </div>
+
+  <!-- Links -->
+  <div
+    class="projectactions mt-4 flex flex-row justify-between gap-x-3 text-xs sm:text-sm"
+  >
+    <div class="flex gap-x-1 sm:gap-x-3">
+      <!-- Github -->
+      {
+        github && (
+          <Tooltip text="Visit the project code">
+            <a
+              href={github}
+              class="cursor-pointer rounded-md border-2 border-border bg-primary px-3 py-1 text-primary-foreground transition-all hover:bg-primary/80"
+            >
+              Github
+            </a>
+          </Tooltip>
+        )
+      }
+      <!-- Live Preview -->
+      {
+        live && (
+          <Tooltip text="View the live preview of website">
+            <a
+              href={live}
+              class="cursor-pointer rounded-md border-2 border-border bg-primary px-3 py-1 text-primary-foreground transition-all hover:bg-primary/80"
+            >
+              Live
+            </a>
+          </Tooltip>
+        )
+      }
+    </div>
+
+    <!-- Brief -->
+    {
+      hasBrief && (
+        <Tooltip text="Read more about the project">
+          <a
+            href={briefURL}
+            class="flex cursor-pointer items-center gap-x-1 rounded-md border-2 border-border bg-primary px-3 py-1 text-primary-foreground transition-all hover:bg-primary/80"
+          >
+            Brief
+            <Icon name={icon} class="text-xs" />
+          </a>
+        </Tooltip>
+      )
+    }
+  </div>
+</div>

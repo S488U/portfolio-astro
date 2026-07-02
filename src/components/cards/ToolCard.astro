@@ -1,0 +1,20 @@
+---
+import { Icon } from "@dallay/astro-icon/components";
+
+interface Props {
+  name: string;
+  icon: string;
+}
+
+const { icon, name } = Astro.props;
+
+const iconPath = "tools";
+const updatedIcon = iconPath + "/" + icon;
+---
+
+<div
+  class="flex cursor-default items-center justify-center gap-x-2 rounded-md border-2 border-border bg-card px-2 py-3 transition-all hover:bg-card/10 md:text-xl"
+>
+  <Icon name={updatedIcon} class="text-xl text-foreground" />
+  {name}
+</div>

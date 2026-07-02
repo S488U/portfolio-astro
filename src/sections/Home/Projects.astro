@@ -1,0 +1,21 @@
+---
+import Header from "../../components/ui/Header.astro";
+import SectionLayout from "../../layouts/SectionLayout.astro";
+import Tooltip from "../../components/ui/Tooltip.astro";
+import ProjectList from "../../components/ui/ProjectList.astro";
+---
+
+<SectionLayout title="projects">
+  <Header title="Projects" description="A selection of my top five projects" />
+
+  <!-- Displays all featured projects. -->
+  <ProjectList featured />
+
+  <p class="text-center text-xs sm:text-sm">
+    Want to explore more projects? <br />
+    Click the link below.
+  </p>
+  <Tooltip text="View more projects :)">
+    <a href="/projects" class="animated-underline"> More Projects </a>
+  </Tooltip>
+</SectionLayout>

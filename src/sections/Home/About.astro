@@ -1,0 +1,14 @@
+---
+import { Content as AboutMarkdown } from "../../contents/about/about-content.md";
+import Header from "../../components/ui/Header.astro";
+import SectionLayout from "../../layouts/SectionLayout.astro";
+---
+
+<SectionLayout title="about" className="bg-card/70">
+  <Header title="About" />
+  <div
+    class="animated-underline flex flex-col gap-y-5 text-justify font-medium text-muted-foreground sm:text-lg"
+  >
+    <AboutMarkdown />
+  </div>
+</SectionLayout>

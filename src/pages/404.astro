@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SectionLayout from "../layouts/SectionLayout.astro";
+
+// Astro.response.status = 404;
+// Astro.response.statusText = "Not Found";
+---
+
+<Layout
+  title="404 Page not found | Shahabas Abdul Hameed - Portfolio"
+  description="The current requested url was not on the server, please try with other urls provided in the website."
+>
+  <SectionLayout title="page-not-founf" className="h-screen">
+    <div class="flex flex-col items-center justify-center gap-y-3 text-center">
+      <h1 class="text-2xl sm:text-5xl">404</h1>
+      <p class="text-xs sm:text-base">The requested page does not exist</p>
+      <a
+        href="/"
+        class="mt-3 cursor-pointer border-2 border-border bg-card px-4 py-1 capitalize transition-all hover:bg-muted"
+      >
+        Go Home
+      </a>
+    </div>
+  </SectionLayout>
+</Layout>

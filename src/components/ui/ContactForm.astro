@@ -1,0 +1,133 @@
+---
+// export const prerender = false;
+import Header from "./Header.astro";
+import { Icon } from "@dallay/astro-icon/components";
+---
+
+<Header
+  title="Connect Me"
+  description="Whether it's a project, opportunity, or tech discussion, my inbox is open."
+/>
+<form
+  data-contact-form
+  class="mt-6 grid w-full grid-cols-1 place-content-center gap-4 md:grid-cols-2 lg:w-3/4"
+  method="POST"
+  novalidate
+>
+  <div class="flex flex-col gap-2">
+    <div class="flex flex-col">
+      <label class="mb-2" for="name">Name:</label>
+      <div class="relative flex flex-col">
+        <small
+          id="name-field"
+          class="pointer-events-none absolute top-3 right-2 scale-95 rounded border border-red-500/40 bg-red-950 px-1 text-red-400 opacity-0 transition-all duration-200 ease-out md:text-sm"
+        >
+        </small>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          autocomplete="off"
+          class="mb-3 border-2 border-border bg-card px-3 py-2 text-base transition-colors"
+        />
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="mb-2" for="email">Email:</label>
+      <div class="relative flex flex-col">
+        <small
+          id="email-field"
+          class="pointer-events-none absolute top-3 right-2 scale-95 rounded border border-red-500/40 bg-red-950 px-1 text-red-400 opacity-0 transition-all duration-200 ease-out md:text-sm"
+        >
+        </small>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          autocomplete="off"
+          class="mb-3 border-2 border-border bg-card px-3 py-2 text-base transition-colors"
+        />
+      </div>
+    </div>
+    <div class="flex flex-col" hidden aria-hidden="true">
+      <label class="mb-2" for="subject">Subject:</label>
+      <input
+        type="text"
+        name="subject"
+        id="subject"
+        autocomplete="off"
+        class="mb-3 border-2 border-border bg-card px-3 py-2 text-base"
+      />
+    </div>
+  </div>
+  <div class="flex flex-col md:col-start-2 md:row-span-2 md:row-start-1">
+    <label class="mb-2" for="msg">Message:</label>
+    <div class="relative flex h-full flex-col">
+      <small
+        id="message-field"
+        class="pointer-events-none absolute top-3 right-2 scale-95 rounded border border-red-500/40 bg-red-950 px-1 text-red-400 opacity-0 transition-all duration-200 ease-out md:text-sm"
+      >
+      </small>
+      <textarea
+        name="message"
+        id="msg"
+        autocomplete="off"
+        class="flex-1 border-2 border-border bg-card px-3 py-2 text-base transition-colors"
+      ></textarea>
+    </div>
+  </div>
+  <button
+    data-send-button
+    type="submit"
+    name="submit"
+    id="submit"
+    class="flex cursor-pointer flex-row items-center justify-center rounded-md border-2 border-border bg-primary px-3 py-2 text-base text-background capitalize transition-all duration-200 hover:bg-primary/70 disabled:cursor-not-allowed disabled:opacity-60 md:col-start-1 md:row-start-2"
+  >
+    <span class="grid place-items-center">
+      <span
+        data-loader
+        class="col-start-1 row-start-1 scale-90 text-2xl opacity-0 transition-all duration-200 ease-out"
+      >
+        <Icon name="contact/loader" />
+      </span>
+      <span
+        data-send-text
+        class="col-start-1 row-start-1 scale-100 font-semibold opacity-100 transition-all duration-200 ease-out sm:font-light"
+      >
+        send
+      </span>
+    </span>
+  </button>
+  <script>
+    function setupContactForms() {
+      document
+        .querySelectorAll<HTMLFormElement>("form[data-contact-form]")
+        .forEach((form) => {
+          if (form.dataset.ready === "true") return;
+          form.dataset.ready = "true";
+
+          let preloaded: Promise<
+            typeof import("../../lib/contactFormHandler")
+          > | null = null;
+
+          function preload() {
+            if (!preloaded) {
+              preloaded = import("../../lib/contactFormHandler");
+            }
+            return preloaded;
+          }
+
+          form.addEventListener("focusin", preload, { once: true });
+
+          form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const { handleContactSubmit } = await preload();
+            handleContactSubmit(form);
+          });
+        });
+    }
+
+    document.addEventListener("astro:page-load", setupContactForms);
+    setupContactForms();
+  </script>
+</form>

@@ -1,0 +1,49 @@
+---
+import { Icon } from "@dallay/astro-icon/components";
+import Name from "../../components/ui/Name.astro";
+import ScrollButton from "../../components/ui/ScrollButton.astro";
+import Tooltip from "../../components/ui/Tooltip.astro";
+import { socials } from "../../lib/data.ts";
+
+const iconPath = "footer";
+const socialIconPath = "socials";
+
+const name = "Shahabas Abdul Hameed";
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <Name />
+  <div class="flex w-full items-center justify-center pt-14 pb-8">
+    <div class="w-4/5">
+      <h3 class="text-sm">Social Media:</h3>
+      <div class="mt-2 flex w-fit gap-3 text-2xl">
+        {
+          socials
+            .filter((social) => social.enabled)
+            .map((social) => (
+              <Tooltip text={social.name}>
+                <a
+                  href={social.link}
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  class="p-px transition-all hover:scale-110"
+                >
+                  <Icon name={`${socialIconPath}/${social.icon}`} />
+                </a>
+              </Tooltip>
+            ))
+        }
+      </div>
+      <p class="mt-4 text-sm sm:text-base">
+        <span
+          class="relative -top-px inline-flex align-middle text-base sm:mr-px"
+        >
+          <Icon name={`${iconPath}/copyright`} />
+        </span>
+        {` ${year} ${name}. All rights reserved. `}
+      </p>
+    </div>
+    <ScrollButton />
+  </div>
+</footer>

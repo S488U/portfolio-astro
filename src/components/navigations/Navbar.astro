@@ -1,0 +1,24 @@
+---
+import { navLinks } from "../../lib/data";
+---
+
+<div
+  class="fixed z-3 flex w-full items-center justify-center px-4 py-3 backdrop-blur-xs sm:py-4"
+>
+  <nav
+    class="flex w-full flex-row items-center justify-between sm:justify-around"
+  >
+    <a href="/">
+      <h1 class="text-lg font-medium sm:font-bold">Portfolio</h1>
+    </a>
+    <div
+      class="animated-underline flex flex-row items-center justify-around gap-x-3 text-sm sm:gap-x-5"
+    >
+      {
+        navLinks
+          .filter((link) => link.enabled)
+          .map((link) => <a href={link.ref}>{link.title}</a>)
+      }
+    </div>
+  </nav>
+</div>
