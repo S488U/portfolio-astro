@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import { twMerge } from "tailwind-merge";
+import ProjectCard from "../cards/ProjectCard.astro";
+
+interface Props {
+  featured?: boolean;
+  errorClass?: string;
+}
+
+const PROJECTS = await getCollection("projects", ({ data }) => !data.draft);
+
+const { featured, errorClass } = Astro.props as Props;
+
+let filteredProjects: typeof PROJECTS = [];
+if (featured) {
+  filteredProjects = PROJECTS.filter((project) => project.data.featureOrder)
+    .sort((a, b) => a.data.featureOrder! - b.data.featureOrder!)
+    .slice(0, 5);
+} else {
+  filteredProjects = PROJECTS.sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
+}
+---
+
+<>
+  {
+    filteredProjects.length !== 0 ? (
+      <div class="grid w-full place-content-center place-items-center gap-y-4">
+        {filteredProjects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    ) : (
+      <div
+        class={twMerge(
+          "flex h-30 w-full flex-col items-center justify-center text-xl text-muted-foreground",
+          errorClass,
+        )}
+      >
+        <p>Oops!</p>
+        <p>404 Projects Not Found :(</p>
+      </div>
+    )
+  }
+</>

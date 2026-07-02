@@ -1,0 +1,14 @@
+• Fixed the tray restore bug.
+
+  Changed:
+
+  - zapzap/controllers/MainWindow.py: saves main/maximized before hiding/closing and restores with showMaximized().
+  - zapzap/controllers/ClientSideRendering.py: same fix for CSR mode.
+
+  Verification:
+
+  - Ran python -m py_compile zapzap/controllers/MainWindow.py zapzap/controllers/ClientSideRendering.py
+  - No syntax errors.
+
+  I did not run a full GUI reproduction because that needs the live Plasma/Wayland tray interaction, but the broken path was the unconditional showNormal() on tray
+  restore.

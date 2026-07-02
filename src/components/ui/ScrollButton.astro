@@ -1,0 +1,15 @@
+---
+import { Icon } from "@dallay/astro-icon/components";
+import Tooltip from "./Tooltip.astro";
+
+const iconPath = "footer";
+---
+
+<Tooltip text="Scroll to Top" class="absolute -top-10 right-2">
+  <a
+    href="#"
+    class="cursor-pointer rounded-lg border-2 border-border px-3 py-2 text-xl text-muted-foreground transition-all hover:scale-110"
+  >
+    <Icon name={`${iconPath}/up-arrow`} />
+  </a>
+</Tooltip>

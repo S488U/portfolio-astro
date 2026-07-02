@@ -1,0 +1,17 @@
+---
+import Name from "../../icons/footer/name.svg";
+
+interface Props {
+  enabled?: boolean;
+}
+
+const { enabled = false } = Astro.props;
+
+if (enabled) return null;
+---
+
+<div class="flex w-full flex-col gap-y-5">
+  <hr class="border-border/50" />
+  <Name class="m-0 h-auto w-full p-0" />
+  <hr class="border-border/50" />
+</div>

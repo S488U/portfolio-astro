@@ -1,0 +1,17 @@
+---
+import Header from "../../components/ui/Header.astro";
+import ProjectList from "../../components/ui/ProjectList.astro";
+import SectionLayout from "../../layouts/SectionLayout.astro";
+---
+
+<div class="min-h-screen">
+  <SectionLayout title="projects" className="place-items-start">
+    <Header
+      title="Projects"
+      TClass="mt-8 text-left"
+      DClass="text-left mb-4 text-center md:w-1/2"
+      description="A collection of projects I've built while learning, exploring new technologies, and turning ideas into reality."
+    />
+    <ProjectList errorClass="mt-15" />
+  </SectionLayout>
+</div>

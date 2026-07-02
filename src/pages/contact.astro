@@ -1,0 +1,38 @@
+---
+import { Icon } from "@dallay/astro-icon/components";
+import Layout from "../layouts/Layout.astro";
+import SectionLayout from "../layouts/SectionLayout.astro";
+import ContactForm from "../components/ui/ContactForm.astro";
+import { socials } from "../lib/data.ts";
+
+const socialIconPath = "socials";
+---
+
+<Layout
+  title="Connect Me | Shahabas Abdul Hameed | Portfolio"
+  description="Feel free to reach out through the contact form or connect with me on my social platforms."
+>
+  <SectionLayout title="Contact">
+    <ContactForm />
+    <div class="mt-6">
+      <h1 class="my-5 text-center text-base sm:text-lg">Find me online!!</h1>
+      <div class="flex items-center justify-center gap-x-8 text-3xl">
+        {
+          socials
+            .filter((icon) => icon.enabled)
+            .map((icon) => (
+              <a
+                href={icon.link}
+                aria-label={icon.name}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="transition-transform hover:scale-110"
+              >
+                <Icon name={`${socialIconPath}/${icon.icon}`} />
+              </a>
+            ))
+        }
+      </div>
+    </div>
+  </SectionLayout>
+</Layout>

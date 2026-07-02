@@ -1,0 +1,27 @@
+---
+import { twMerge } from "tailwind-merge";
+
+interface Props {
+  title: string;
+  description?: string;
+  TClass?: string;
+  DClass?: string;
+}
+
+const { title, description, TClass, DClass } = Astro.props;
+---
+
+<div
+  class="flex w-full flex-col items-center justify-center gap-y-3 text-center"
+>
+  <h1 class={twMerge("text-2xl sm:text-4xl capitalize ", TClass)}>
+    {title}
+  </h1>
+  {
+    description && (
+      <p class={twMerge("px-4 text-xs italic sm:text-sm md:px-0", DClass)}>
+        {description}
+      </p>
+    )
+  }
+</div>

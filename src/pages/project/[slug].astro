@@ -1,0 +1,110 @@
+---
+import { getCollection, render } from "astro:content";
+import { slugify } from "../../lib/utils";
+import Layout from "../../layouts/Layout.astro";
+import Pills from "../../components/ui/Pills.astro";
+import { formatDate } from "../../lib/utils.ts";
+import { Picture } from "astro:assets";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: slugify(project.data.title) },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { id, data, body } = project;
+const hasBrief = (body ?? "").trim().length > 0;
+const {
+  title,
+  description,
+  technologies,
+  hosted,
+  tags,
+  date,
+  github,
+  live,
+  images,
+} = data;
+---
+
+<Layout title={title + " - Shahabas Abdul Hameed"} description={description}>
+  <article id={id} class="mx-auto max-w-2xl px-4 py-8 pt-25">
+    <header class="flex flex-col gap-y-3 sm:gap-y-5">
+      <p class="text-xs text-foreground/80 sm:text-sm">{formatDate(date)}</p>
+      <h1 class="text-2xl font-bold capitalize sm:text-4xl">{title}</h1>
+      <em><p class="text-sm">{description}</p></em>
+    </header>
+
+    <div class="mt-3 flex flex-wrap items-start gap-2 sm:gap-3">
+      {technologies.map((tech) => <Pills tech={tech} />)}
+    </div>
+
+    <div
+      class="mt-5 flex items-center justify-start gap-x-2 text-sm text-foreground/90 sm:gap-x-3"
+    >
+      {
+        github && (
+          <a
+            target="_blank"
+            href={github}
+            aria-label="Github"
+            class="cursor-pointer rounded-md bg-muted px-3 py-1 text-muted-foreground transition-all hover:bg-muted/70"
+          >
+            GitHub
+          </a>
+        )
+      }
+      {
+        live && (
+          <a
+            target="_blank"
+            href={live}
+            aria-label="Live"
+            class="cursor-pointer rounded-md bg-muted px-3 py-1 text-muted-foreground transition-all hover:bg-muted/70"
+          >
+            Live
+          </a>
+        )
+      }
+    </div>
+
+    <hr class="my-8 border border-border" />
+
+    {
+      images &&
+        images.map((img) => (
+          <Picture
+            src={img}
+            alt={title}
+            formats={["avif", "webp"]}
+            class="mb-10 rounded-md border-2 border-border"
+          />
+        ))
+    }
+
+    <!-- Main content -->
+    <div class="prose max-w-none prose-invert">
+      {hasBrief ? <Content /> : <p>No detailed write-up available yet.</p>}
+    </div>
+
+    <hr class="my-8 border border-border" />
+    {
+      tags && tags.length > 0 && (
+        <div>
+          <h4>Tags:</h4>
+          <div class="mt-2 flex gap-2">
+            {tags.map((tag) => (
+              <a class="rounded-md bg-muted/85 px-2 py-1 text-sm text-muted-foreground">
+                #{tag}
+              </a>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </article>
+</Layout>
