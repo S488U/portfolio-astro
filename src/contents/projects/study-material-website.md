@@ -59,7 +59,7 @@ My MCA friend started to gather MCA study material and helped me to host it in t
 
 I implemented `Google Analytics` for the web and _shocked_ to see the users in the web when near the exam time. _Still the web is using by our juniors._
 
-_**And I planned to Port the entire web to **`MERN Stack`** with newer architecture.**_
+_**And I planned to Port the entire web to `Next JS` + `TypeScript`with newer architecture.**_
 
 If you want to see the future updates, _star our project in the **Github**_
 
