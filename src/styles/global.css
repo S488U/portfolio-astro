@@ -87,12 +87,16 @@ body {
     &[href]:not(.no-underline) {
       @apply relative cursor-pointer;
 
+      &::before {
+        content: "";
+        @apply absolute -inset-2;
+      }
+
       &::after {
         content: "";
         @apply absolute bottom-0 left-0 h-0.5 w-full bg-muted-foreground;
         transition: background-color 0.3s ease;
       }
-
       &:hover::after {
         @apply bg-foreground;
       }
