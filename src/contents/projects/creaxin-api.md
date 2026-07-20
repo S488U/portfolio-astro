@@ -1,6 +1,6 @@
 ---
 title: "Creaxin API"
-description: "Creaxin API is an Express.js REST API that generates random fake person profiles — name, age, occupation, and country/city — via single or bulk endpoints."
+description: "Creaxin API is an Express.js REST API that generates random fake person profiles: name, age, occupation, and country/city, via single or bulk endpoints."
 technologies: ["Javascript", "NodeJS", "ExpressJS", "Rest API"]
 hosted: Vercel
 tags: []

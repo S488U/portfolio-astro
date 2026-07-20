@@ -1,6 +1,6 @@
 ---
 title: "OCR Express"
-description: "Convert images to text instantly using Tesseract WASM backend. Upload, paste, or link images. Free, fast, and privacy-friendly. Built using Next JS."
+description: "Convert images to text instantly using Tesseract WASM backend. Upload, paste, or link images. Free, fast, and privacy friendly. Built using Next JS."
 technologies: ["Next JS", "TypeScript", "Tailwind", "Tesseract JS", "WASM"]
 hosted: Vercel
 tags: []
