@@ -25,6 +25,7 @@ pnpm-debug.log*
 .agents/
 .codex/
 .vscode/
+.og-cache/
 
-# Agents 
+# Agents
 AGENTS.md
