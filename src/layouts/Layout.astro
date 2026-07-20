@@ -39,15 +39,7 @@ const resolvedOgImage = new URL(
       cssVariable="--font-heading"
       preload={[{ weight: 600, style: "normal" }]}
     />
-    <Font
-      cssVariable="--font-body"
-      preload={[
-        { weight: 400, style: "normal" },
-        { weight: 500, style: "normal" },
-        { weight: 700, style: "normal" },
-      ]}
-    />
-    <Font cssVariable="--font-normal" />
+    <Font cssVariable="--font-body" preload={[{ style: "normal" }]} />
 
     <title>{title}</title>
 
