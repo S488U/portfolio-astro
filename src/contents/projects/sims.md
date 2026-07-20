@@ -1,6 +1,6 @@
 ---
 title: "Smart Inventory Management System"
-description: "A modern inventory management platform for FMCG distributors, built as our final-year BCA project."
+description: "A modern inventory management platform for FMCG distributors, built as our final year BCA project."
 technologies: [ "NodeJS", "ExpressJS", "ReactJS", "JWT", "Rest API", "MongoDB", "Express-Async-Handler", ]
 hosted: "Vercel"
 tags: ["MERN", "college-project"]
