@@ -8,12 +8,22 @@ import { Font } from "astro:assets";
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
 }
 
 const {
   title = "Shahabas Abdul Hameed | Portfolio",
   description = "Personal Portfolio of Shahabas Abdul Hameed",
+  ogImage,
 } = Astro.props;
+
+const cleanPath = Astro.url.pathname.replace(/^\/|\/$/g, "");
+const ogImagePath = cleanPath ? `og/${cleanPath}.png` : "og.png";
+
+const resolvedOgImage = new URL(
+  ogImage || ogImagePath,
+  Astro.site ?? Astro.url.origin,
+);
 ---
 
 <!doctype html>
@@ -40,6 +50,20 @@ const {
     <Font cssVariable="--font-normal" />
 
     <title>{title}</title>
+
+    {
+      resolvedOgImage && (
+        <>
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:image" content={resolvedOgImage} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={title} />
+          <meta name="twitter:description" content={description} />
+          <meta name="twitter:image" content={resolvedOgImage} />
+        </>
+      )
+    }
     <ClientRouter />
   </head>
   <body>
