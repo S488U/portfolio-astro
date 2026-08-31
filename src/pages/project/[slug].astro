@@ -8,16 +8,18 @@ import { Picture } from "astro:assets";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
-  return projects.map((project) => ({
-    params: { slug: slugify(project.data.title) },
-    props: { project },
-  }));
+  return projects
+    .filter((project) => (project.body ?? "").trim().length > 0)
+    .map((project) => ({
+      params: { slug: slugify(project.data.title) },
+      props: { project },
+    }));
 }
 
 const { project } = Astro.props;
+const { id, data } = project;
+
 const { Content } = await render(project);
-const { id, data, body } = project;
-const hasBrief = (body ?? "").trim().length > 0;
 const {
   title,
   description,
@@ -88,7 +90,7 @@ const {
 
     <!-- Main content -->
     <div class="prose max-w-none prose-invert">
-      {hasBrief ? <Content /> : <p>No detailed write-up available yet.</p>}
+      <Content />
     </div>
 
     <hr class="my-8 border border-border" />
