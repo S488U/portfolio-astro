@@ -47,6 +47,11 @@ export default defineConfig({
     }),
   },
 
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "hover",
+  },
+
   output: "static",
   adapter: vercel(),
 });
