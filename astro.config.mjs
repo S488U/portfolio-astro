@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig, fontProviders, envField } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import { unified } from "@astrojs/markdown-remark";
 import rehypeExternalLinks from "rehype-external-links";
@@ -12,6 +12,13 @@ export default defineConfig({
   site: "https://shahabas.vercel.app",
   vite: {
     plugins: [tailwindcss()],
+  },
+
+  env: {
+    schema: {
+      RESEND_API_KEY: envField.string({ context: "server", access: "secret" }),
+      TO_EMAIL: envField.string({ context: "server", access: "secret" }),
+    },
   },
 
   integrations: [icon()],

@@ -2,6 +2,7 @@ import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro/zod";
 import { Resend } from "resend";
 import { emailTemplate } from "../lib/emailTemplate";
+import { RESEND_API_KEY, TO_EMAIL } from "astro:env/server";
 
 const requiredText = <T extends z.ZodType<any, string, any>>(schema: T) =>
   z
@@ -44,8 +45,7 @@ export const server = {
         };
       }
 
-      const resendApiKey = import.meta.env.RESEND_API_KEY;
-      // const resendApiKey = import.meta.env.NULL;
+      const resendApiKey = RESEND_API_KEY;
 
       if (!resendApiKey) {
         throw new ActionError({
@@ -58,7 +58,7 @@ export const server = {
 
       const payload = {
         from: "Portfolio Contact Form <onboarding@resend.dev>",
-        to: import.meta.env.TO_EMAIL,
+        to: TO_EMAIL,
         subject: `New Message from ${name}`,
         html: emailTemplate({ name, email, message, ipAddr }),
       };
